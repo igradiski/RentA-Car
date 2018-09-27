@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b0edfaec53f446edb8fea27e6f3733bb" Name="Diagram1">
+        <EntityTypeShape EntityType="DBModel.Iznajmljivanje" Width="1.5" PointX="5.25" PointY="6.5" />
+        <EntityTypeShape EntityType="DBModel.Kategorija" Width="1.5" PointX="3.75" PointY="3.25" />
+        <EntityTypeShape EntityType="DBModel.Korisnik" Width="1.5" PointX="3" PointY="6.5" />
+        <EntityTypeShape EntityType="DBModel.PovratnaInformacija" Width="1.5" PointX="8.25" PointY="10.5" />
+        <EntityTypeShape EntityType="DBModel.Racun" Width="1.5" PointX="3" PointY="14.75" />
+        <EntityTypeShape EntityType="DBModel.Radi" Width="1.5" PointX="8.25" PointY="7.75" />
+        <EntityTypeShape EntityType="DBModel.Rezervacija" Width="1.5" PointX="8.25" PointY="3.125" />
+        <EntityTypeShape EntityType="DBModel.Smjena" Width="1.5" PointX="6" PointY="11.75" />
+        <EntityTypeShape EntityType="DBModel.TipKorisnika" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="DBModel.TipMotora" Width="1.5" PointX="3.75" PointY="11.75" />
+        <EntityTypeShape EntityType="DBModel.Vozilo" Width="1.5" PointX="6" PointY="0.75" />
+        <AssociationConnector Association="DBModel.FK_Iznajmljivanje_Korisnik" />
+        <AssociationConnector Association="DBModel.FK_Iznajmljivanje_Korisnik1" />
+        <AssociationConnector Association="DBModel.FK_Iznajmljivanje_Racun" />
+        <AssociationConnector Association="DBModel.FK_Iznajmljivanje_Vozilo" />
+        <AssociationConnector Association="DBModel.FK_Vozilo_Kategorija" />
+        <AssociationConnector Association="DBModel.FK_Korisnik_TipKorisnika" />
+        <AssociationConnector Association="DBModel.FK_PovratnaInformacija_Korisnik" />
+        <AssociationConnector Association="DBModel.FK_Radi_Korisnik" />
+        <AssociationConnector Association="DBModel.FK_Rezervacija_Korisnik" />
+        <AssociationConnector Association="DBModel.FK_PovratnaInformacija_Vozilo" />
+        <AssociationConnector Association="DBModel.FK_Radi_Smjena" />
+        <AssociationConnector Association="DBModel.FK_Rezervacija_Vozilo" />
+        <AssociationConnector Association="DBModel.FK_Vozilo_TipMotora" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

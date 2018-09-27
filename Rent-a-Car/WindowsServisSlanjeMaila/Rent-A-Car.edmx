@@ -1,0 +1,925 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Iznajmljivanje">
+          <Key>
+            <PropertyRef Name="IznamljivanjeID" />
+          </Key>
+          <Property Name="IznamljivanjeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Opis" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="JedinicnaCijena" Type="float" Nullable="false" />
+          <Property Name="DatumPocetka" Type="datetime" Nullable="false" />
+          <Property Name="DatumKraja" Type="datetime" Nullable="false" />
+          <Property Name="BrojDana" Type="int" Nullable="false" />
+          <Property Name="DjelatnikID" Type="char" MaxLength="11" />
+          <Property Name="RacunID" Type="int" />
+          <Property Name="VoziloID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="KlijentID" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="UkupnaCijena" Type="float" Nullable="false" />
+          <Property Name="Naplaceno" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kategorija">
+          <Key>
+            <PropertyRef Name="KategorijaID" />
+          </Key>
+          <Property Name="KategorijaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Opis" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Korisnik">
+          <Key>
+            <PropertyRef Name="KorisnikID" />
+          </Key>
+          <Property Name="KorisnikID" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="Ime" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Prezime" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Lozinka" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="KorisnickoIme" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DatumRodenja" Type="datetime" Nullable="false" />
+          <Property Name="Adresa" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mobitel" Type="varchar" MaxLength="20" />
+          <Property Name="Telefon" Type="varchar" MaxLength="20" />
+          <Property Name="Mail" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IBAN" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="TipKorisnika" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PovratnaInformacija">
+          <Key>
+            <PropertyRef Name="PovratnaInformacijaID" />
+          </Key>
+          <Property Name="PovratnaInformacijaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Opis" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Ocjena" Type="int" Nullable="false" />
+          <Property Name="VoziloID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="KorisnikID" Type="char" MaxLength="11" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Racun">
+          <Key>
+            <PropertyRef Name="RacunID" />
+          </Key>
+          <Property Name="RacunID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DatumRacuna" Type="datetime" Nullable="false" />
+          <Property Name="Djelatnik" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="IznosRacuna" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Radi">
+          <Key>
+            <PropertyRef Name="DjelatnikID" />
+            <PropertyRef Name="SmjenaID" />
+            <PropertyRef Name="Datum" />
+          </Key>
+          <Property Name="DjelatnikID" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="SmjenaID" Type="int" Nullable="false" />
+          <Property Name="Datum" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rezervacija">
+          <Key>
+            <PropertyRef Name="RezervacijaID" />
+          </Key>
+          <Property Name="RezervacijaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Opis" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="DatumRezervacije" Type="datetime" Nullable="false" />
+          <Property Name="DatumPocetka" Type="datetime" Nullable="false" />
+          <Property Name="DatumKraja" Type="datetime" Nullable="false" />
+          <Property Name="JedinicnaCijena" Type="float" Nullable="false" />
+          <Property Name="BrojDana" Type="int" Nullable="false" />
+          <Property Name="VoziloID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="KorisnikID" Type="char" MaxLength="11" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Smjena">
+          <Key>
+            <PropertyRef Name="SmjenaID" />
+          </Key>
+          <Property Name="SmjenaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Trajanje" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipKorisnika">
+          <Key>
+            <PropertyRef Name="TipID" />
+          </Key>
+          <Property Name="TipID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Opis" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="TipMotora">
+          <Key>
+            <PropertyRef Name="TipMotoraID" />
+          </Key>
+          <Property Name="TipMotoraID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Opis" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Vozilo">
+          <Key>
+            <PropertyRef Name="VoziloID" />
+          </Key>
+          <Property Name="VoziloID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Naziv" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="GodinaProizvodnje" Type="int" Nullable="false" />
+          <Property Name="SnagaMotora" Type="int" Nullable="false" />
+          <Property Name="BrojSjedala" Type="int" Nullable="false" />
+          <Property Name="Kilometri" Type="int" Nullable="false" />
+          <Property Name="DatumRegistracije" Type="datetime" Nullable="false" />
+          <Property Name="KategorijaID" Type="int" Nullable="false" />
+          <Property Name="TipMotoraID" Type="int" Nullable="false" />
+          <Property Name="CijenaPoDanu" Type="float" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Iznajmljivanje_Korisnik">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="0..1" />
+          <End Role="Iznajmljivanje" Type="Self.Iznajmljivanje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="Iznajmljivanje">
+              <PropertyRef Name="DjelatnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Iznajmljivanje_Korisnik1">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Iznajmljivanje" Type="Self.Iznajmljivanje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="Iznajmljivanje">
+              <PropertyRef Name="KlijentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Iznajmljivanje_Racun">
+          <End Role="Racun" Type="Self.Racun" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Iznajmljivanje" Type="Self.Iznajmljivanje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Racun">
+              <PropertyRef Name="RacunID" />
+            </Principal>
+            <Dependent Role="Iznajmljivanje">
+              <PropertyRef Name="RacunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Iznajmljivanje_Vozilo">
+          <End Role="Vozilo" Type="Self.Vozilo" Multiplicity="1" />
+          <End Role="Iznajmljivanje" Type="Self.Iznajmljivanje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vozilo">
+              <PropertyRef Name="VoziloID" />
+            </Principal>
+            <Dependent Role="Iznajmljivanje">
+              <PropertyRef Name="VoziloID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korisnik_TipKorisnika">
+          <End Role="TipKorisnika" Type="Self.TipKorisnika" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipKorisnika">
+              <PropertyRef Name="TipID" />
+            </Principal>
+            <Dependent Role="Korisnik">
+              <PropertyRef Name="TipKorisnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PovratnaInformacija_Korisnik">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PovratnaInformacija" Type="Self.PovratnaInformacija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="PovratnaInformacija">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PovratnaInformacija_Vozilo">
+          <End Role="Vozilo" Type="Self.Vozilo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PovratnaInformacija" Type="Self.PovratnaInformacija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vozilo">
+              <PropertyRef Name="VoziloID" />
+            </Principal>
+            <Dependent Role="PovratnaInformacija">
+              <PropertyRef Name="VoziloID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Radi_Korisnik">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Radi" Type="Self.Radi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="Radi">
+              <PropertyRef Name="DjelatnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Radi_Smjena">
+          <End Role="Smjena" Type="Self.Smjena" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Radi" Type="Self.Radi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Smjena">
+              <PropertyRef Name="SmjenaID" />
+            </Principal>
+            <Dependent Role="Radi">
+              <PropertyRef Name="SmjenaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rezervacija_Korisnik">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Rezervacija" Type="Self.Rezervacija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="Rezervacija">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rezervacija_Vozilo">
+          <End Role="Vozilo" Type="Self.Vozilo" Multiplicity="1" />
+          <End Role="Rezervacija" Type="Self.Rezervacija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vozilo">
+              <PropertyRef Name="VoziloID" />
+            </Principal>
+            <Dependent Role="Rezervacija">
+              <PropertyRef Name="VoziloID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vozilo_Kategorija">
+          <End Role="Kategorija" Type="Self.Kategorija" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Vozilo" Type="Self.Vozilo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorija">
+              <PropertyRef Name="KategorijaID" />
+            </Principal>
+            <Dependent Role="Vozilo">
+              <PropertyRef Name="KategorijaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vozilo_TipMotora">
+          <End Role="TipMotora" Type="Self.TipMotora" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Vozilo" Type="Self.Vozilo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipMotora">
+              <PropertyRef Name="TipMotoraID" />
+            </Principal>
+            <Dependent Role="Vozilo">
+              <PropertyRef Name="TipMotoraID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBModelStoreContainer">
+          <EntitySet Name="Iznajmljivanje" EntityType="Self.Iznajmljivanje" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategorija" EntityType="Self.Kategorija" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Korisnik" EntityType="Self.Korisnik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PovratnaInformacija" EntityType="Self.PovratnaInformacija" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Racun" EntityType="Self.Racun" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Radi" EntityType="Self.Radi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rezervacija" EntityType="Self.Rezervacija" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Smjena" EntityType="Self.Smjena" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipKorisnika" EntityType="Self.TipKorisnika" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipMotora" EntityType="Self.TipMotora" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vozilo" EntityType="Self.Vozilo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Iznajmljivanje_Korisnik" Association="Self.FK_Iznajmljivanje_Korisnik">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Iznajmljivanje" EntitySet="Iznajmljivanje" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Iznajmljivanje_Korisnik1" Association="Self.FK_Iznajmljivanje_Korisnik1">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Iznajmljivanje" EntitySet="Iznajmljivanje" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Iznajmljivanje_Racun" Association="Self.FK_Iznajmljivanje_Racun">
+            <End Role="Racun" EntitySet="Racun" />
+            <End Role="Iznajmljivanje" EntitySet="Iznajmljivanje" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Iznajmljivanje_Vozilo" Association="Self.FK_Iznajmljivanje_Vozilo">
+            <End Role="Vozilo" EntitySet="Vozilo" />
+            <End Role="Iznajmljivanje" EntitySet="Iznajmljivanje" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korisnik_TipKorisnika" Association="Self.FK_Korisnik_TipKorisnika">
+            <End Role="TipKorisnika" EntitySet="TipKorisnika" />
+            <End Role="Korisnik" EntitySet="Korisnik" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PovratnaInformacija_Korisnik" Association="Self.FK_PovratnaInformacija_Korisnik">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="PovratnaInformacija" EntitySet="PovratnaInformacija" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PovratnaInformacija_Vozilo" Association="Self.FK_PovratnaInformacija_Vozilo">
+            <End Role="Vozilo" EntitySet="Vozilo" />
+            <End Role="PovratnaInformacija" EntitySet="PovratnaInformacija" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Radi_Korisnik" Association="Self.FK_Radi_Korisnik">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Radi" EntitySet="Radi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Radi_Smjena" Association="Self.FK_Radi_Smjena">
+            <End Role="Smjena" EntitySet="Smjena" />
+            <End Role="Radi" EntitySet="Radi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rezervacija_Korisnik" Association="Self.FK_Rezervacija_Korisnik">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Rezervacija" EntitySet="Rezervacija" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rezervacija_Vozilo" Association="Self.FK_Rezervacija_Vozilo">
+            <End Role="Vozilo" EntitySet="Vozilo" />
+            <End Role="Rezervacija" EntitySet="Rezervacija" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vozilo_Kategorija" Association="Self.FK_Vozilo_Kategorija">
+            <End Role="Kategorija" EntitySet="Kategorija" />
+            <End Role="Vozilo" EntitySet="Vozilo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vozilo_TipMotora" Association="Self.FK_Vozilo_TipMotora">
+            <End Role="TipMotora" EntitySet="TipMotora" />
+            <End Role="Vozilo" EntitySet="Vozilo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Iznajmljivanje" EntityType="DBModel.Iznajmljivanje" />
+          <EntitySet Name="Kategorija" EntityType="DBModel.Kategorija" />
+          <EntitySet Name="Korisnik" EntityType="DBModel.Korisnik" />
+          <EntitySet Name="PovratnaInformacija" EntityType="DBModel.PovratnaInformacija" />
+          <EntitySet Name="Racun" EntityType="DBModel.Racun" />
+          <EntitySet Name="Radi" EntityType="DBModel.Radi" />
+          <EntitySet Name="Rezervacija" EntityType="DBModel.Rezervacija" />
+          <EntitySet Name="Smjena" EntityType="DBModel.Smjena" />
+          <EntitySet Name="TipKorisnika" EntityType="DBModel.TipKorisnika" />
+          <EntitySet Name="TipMotora" EntityType="DBModel.TipMotora" />
+          <EntitySet Name="Vozilo" EntityType="DBModel.Vozilo" />
+          <AssociationSet Name="FK_Iznajmljivanje_Korisnik" Association="DBModel.FK_Iznajmljivanje_Korisnik">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Iznajmljivanje" EntitySet="Iznajmljivanje" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Iznajmljivanje_Korisnik1" Association="DBModel.FK_Iznajmljivanje_Korisnik1">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Iznajmljivanje" EntitySet="Iznajmljivanje" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Iznajmljivanje_Racun" Association="DBModel.FK_Iznajmljivanje_Racun">
+            <End Role="Racun" EntitySet="Racun" />
+            <End Role="Iznajmljivanje" EntitySet="Iznajmljivanje" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Iznajmljivanje_Vozilo" Association="DBModel.FK_Iznajmljivanje_Vozilo">
+            <End Role="Vozilo" EntitySet="Vozilo" />
+            <End Role="Iznajmljivanje" EntitySet="Iznajmljivanje" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vozilo_Kategorija" Association="DBModel.FK_Vozilo_Kategorija">
+            <End Role="Kategorija" EntitySet="Kategorija" />
+            <End Role="Vozilo" EntitySet="Vozilo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korisnik_TipKorisnika" Association="DBModel.FK_Korisnik_TipKorisnika">
+            <End Role="TipKorisnika" EntitySet="TipKorisnika" />
+            <End Role="Korisnik" EntitySet="Korisnik" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PovratnaInformacija_Korisnik" Association="DBModel.FK_PovratnaInformacija_Korisnik">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="PovratnaInformacija" EntitySet="PovratnaInformacija" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Radi_Korisnik" Association="DBModel.FK_Radi_Korisnik">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Radi" EntitySet="Radi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rezervacija_Korisnik" Association="DBModel.FK_Rezervacija_Korisnik">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Rezervacija" EntitySet="Rezervacija" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PovratnaInformacija_Vozilo" Association="DBModel.FK_PovratnaInformacija_Vozilo">
+            <End Role="Vozilo" EntitySet="Vozilo" />
+            <End Role="PovratnaInformacija" EntitySet="PovratnaInformacija" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Radi_Smjena" Association="DBModel.FK_Radi_Smjena">
+            <End Role="Smjena" EntitySet="Smjena" />
+            <End Role="Radi" EntitySet="Radi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rezervacija_Vozilo" Association="DBModel.FK_Rezervacija_Vozilo">
+            <End Role="Vozilo" EntitySet="Vozilo" />
+            <End Role="Rezervacija" EntitySet="Rezervacija" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vozilo_TipMotora" Association="DBModel.FK_Vozilo_TipMotora">
+            <End Role="TipMotora" EntitySet="TipMotora" />
+            <End Role="Vozilo" EntitySet="Vozilo" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Iznajmljivanje">
+          <Key>
+            <PropertyRef Name="IznamljivanjeID" />
+          </Key>
+          <Property Name="IznamljivanjeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Opis" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="JedinicnaCijena" Type="Double" Nullable="false" />
+          <Property Name="DatumPocetka" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DatumKraja" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BrojDana" Type="Int32" Nullable="false" />
+          <Property Name="DjelatnikID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="RacunID" Type="Int32" />
+          <Property Name="VoziloID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="KlijentID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="UkupnaCijena" Type="Double" Nullable="false" />
+          <Property Name="Naplaceno" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Korisnik" Relationship="DBModel.FK_Iznajmljivanje_Korisnik" FromRole="Iznajmljivanje" ToRole="Korisnik" />
+          <NavigationProperty Name="Korisnik1" Relationship="DBModel.FK_Iznajmljivanje_Korisnik1" FromRole="Iznajmljivanje" ToRole="Korisnik" />
+          <NavigationProperty Name="Racun" Relationship="DBModel.FK_Iznajmljivanje_Racun" FromRole="Iznajmljivanje" ToRole="Racun" />
+          <NavigationProperty Name="Vozilo" Relationship="DBModel.FK_Iznajmljivanje_Vozilo" FromRole="Iznajmljivanje" ToRole="Vozilo" />
+        </EntityType>
+        <EntityType Name="Kategorija">
+          <Key>
+            <PropertyRef Name="KategorijaID" />
+          </Key>
+          <Property Name="KategorijaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Opis" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Vozilo" Relationship="DBModel.FK_Vozilo_Kategorija" FromRole="Kategorija" ToRole="Vozilo" />
+        </EntityType>
+        <EntityType Name="Korisnik">
+          <Key>
+            <PropertyRef Name="KorisnikID" />
+          </Key>
+          <Property Name="KorisnikID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="Ime" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Prezime" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Lozinka" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KorisnickoIme" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DatumRodenja" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Adresa" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mobitel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Telefon" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Mail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IBAN" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="TipKorisnika" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Iznajmljivanje" Relationship="DBModel.FK_Iznajmljivanje_Korisnik" FromRole="Korisnik" ToRole="Iznajmljivanje" />
+          <NavigationProperty Name="Iznajmljivanje1" Relationship="DBModel.FK_Iznajmljivanje_Korisnik1" FromRole="Korisnik" ToRole="Iznajmljivanje" />
+          <NavigationProperty Name="TipKorisnika1" Relationship="DBModel.FK_Korisnik_TipKorisnika" FromRole="Korisnik" ToRole="TipKorisnika" />
+          <NavigationProperty Name="PovratnaInformacija" Relationship="DBModel.FK_PovratnaInformacija_Korisnik" FromRole="Korisnik" ToRole="PovratnaInformacija" />
+          <NavigationProperty Name="Radi" Relationship="DBModel.FK_Radi_Korisnik" FromRole="Korisnik" ToRole="Radi" />
+          <NavigationProperty Name="Rezervacija" Relationship="DBModel.FK_Rezervacija_Korisnik" FromRole="Korisnik" ToRole="Rezervacija" />
+        </EntityType>
+        <EntityType Name="PovratnaInformacija">
+          <Key>
+            <PropertyRef Name="PovratnaInformacijaID" />
+          </Key>
+          <Property Name="PovratnaInformacijaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Opis" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Ocjena" Type="Int32" Nullable="false" />
+          <Property Name="VoziloID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="KorisnikID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Korisnik" Relationship="DBModel.FK_PovratnaInformacija_Korisnik" FromRole="PovratnaInformacija" ToRole="Korisnik" />
+          <NavigationProperty Name="Vozilo" Relationship="DBModel.FK_PovratnaInformacija_Vozilo" FromRole="PovratnaInformacija" ToRole="Vozilo" />
+        </EntityType>
+        <EntityType Name="Racun">
+          <Key>
+            <PropertyRef Name="RacunID" />
+          </Key>
+          <Property Name="RacunID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DatumRacuna" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Djelatnik" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="IznosRacuna" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Iznajmljivanje" Relationship="DBModel.FK_Iznajmljivanje_Racun" FromRole="Racun" ToRole="Iznajmljivanje" />
+        </EntityType>
+        <EntityType Name="Radi">
+          <Key>
+            <PropertyRef Name="DjelatnikID" />
+            <PropertyRef Name="SmjenaID" />
+            <PropertyRef Name="Datum" />
+          </Key>
+          <Property Name="DjelatnikID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="SmjenaID" Type="Int32" Nullable="false" />
+          <Property Name="Datum" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Korisnik" Relationship="DBModel.FK_Radi_Korisnik" FromRole="Radi" ToRole="Korisnik" />
+          <NavigationProperty Name="Smjena" Relationship="DBModel.FK_Radi_Smjena" FromRole="Radi" ToRole="Smjena" />
+        </EntityType>
+        <EntityType Name="Rezervacija">
+          <Key>
+            <PropertyRef Name="RezervacijaID" />
+          </Key>
+          <Property Name="RezervacijaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Opis" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DatumRezervacije" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DatumPocetka" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DatumKraja" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="JedinicnaCijena" Type="Double" Nullable="false" />
+          <Property Name="BrojDana" Type="Int32" Nullable="false" />
+          <Property Name="VoziloID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="KorisnikID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Korisnik" Relationship="DBModel.FK_Rezervacija_Korisnik" FromRole="Rezervacija" ToRole="Korisnik" />
+          <NavigationProperty Name="Vozilo" Relationship="DBModel.FK_Rezervacija_Vozilo" FromRole="Rezervacija" ToRole="Vozilo" />
+        </EntityType>
+        <EntityType Name="Smjena">
+          <Key>
+            <PropertyRef Name="SmjenaID" />
+          </Key>
+          <Property Name="SmjenaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Trajanje" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Radi" Relationship="DBModel.FK_Radi_Smjena" FromRole="Smjena" ToRole="Radi" />
+        </EntityType>
+        <EntityType Name="TipKorisnika">
+          <Key>
+            <PropertyRef Name="TipID" />
+          </Key>
+          <Property Name="TipID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Opis" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Korisnik" Relationship="DBModel.FK_Korisnik_TipKorisnika" FromRole="TipKorisnika" ToRole="Korisnik" />
+        </EntityType>
+        <EntityType Name="TipMotora">
+          <Key>
+            <PropertyRef Name="TipMotoraID" />
+          </Key>
+          <Property Name="TipMotoraID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Opis" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Vozilo" Relationship="DBModel.FK_Vozilo_TipMotora" FromRole="TipMotora" ToRole="Vozilo" />
+        </EntityType>
+        <EntityType Name="Vozilo">
+          <Key>
+            <PropertyRef Name="VoziloID" />
+          </Key>
+          <Property Name="VoziloID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Naziv" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="GodinaProizvodnje" Type="Int32" Nullable="false" />
+          <Property Name="SnagaMotora" Type="Int32" Nullable="false" />
+          <Property Name="BrojSjedala" Type="Int32" Nullable="false" />
+          <Property Name="Kilometri" Type="Int32" Nullable="false" />
+          <Property Name="DatumRegistracije" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="KategorijaID" Type="Int32" Nullable="false" />
+          <Property Name="TipMotoraID" Type="Int32" Nullable="false" />
+          <Property Name="CijenaPoDanu" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Iznajmljivanje" Relationship="DBModel.FK_Iznajmljivanje_Vozilo" FromRole="Vozilo" ToRole="Iznajmljivanje" />
+          <NavigationProperty Name="Kategorija" Relationship="DBModel.FK_Vozilo_Kategorija" FromRole="Vozilo" ToRole="Kategorija" />
+          <NavigationProperty Name="PovratnaInformacija" Relationship="DBModel.FK_PovratnaInformacija_Vozilo" FromRole="Vozilo" ToRole="PovratnaInformacija" />
+          <NavigationProperty Name="Rezervacija" Relationship="DBModel.FK_Rezervacija_Vozilo" FromRole="Vozilo" ToRole="Rezervacija" />
+          <NavigationProperty Name="TipMotora" Relationship="DBModel.FK_Vozilo_TipMotora" FromRole="Vozilo" ToRole="TipMotora" />
+        </EntityType>
+        <Association Name="FK_Iznajmljivanje_Korisnik">
+          <End Type="DBModel.Korisnik" Role="Korisnik" Multiplicity="0..1" />
+          <End Type="DBModel.Iznajmljivanje" Role="Iznajmljivanje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="Iznajmljivanje">
+              <PropertyRef Name="DjelatnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Iznajmljivanje_Korisnik1">
+          <End Type="DBModel.Korisnik" Role="Korisnik" Multiplicity="1" />
+          <End Type="DBModel.Iznajmljivanje" Role="Iznajmljivanje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="Iznajmljivanje">
+              <PropertyRef Name="KlijentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Iznajmljivanje_Racun">
+          <End Type="DBModel.Racun" Role="Racun" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DBModel.Iznajmljivanje" Role="Iznajmljivanje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Racun">
+              <PropertyRef Name="RacunID" />
+            </Principal>
+            <Dependent Role="Iznajmljivanje">
+              <PropertyRef Name="RacunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Iznajmljivanje_Vozilo">
+          <End Type="DBModel.Vozilo" Role="Vozilo" Multiplicity="1" />
+          <End Type="DBModel.Iznajmljivanje" Role="Iznajmljivanje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vozilo">
+              <PropertyRef Name="VoziloID" />
+            </Principal>
+            <Dependent Role="Iznajmljivanje">
+              <PropertyRef Name="VoziloID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vozilo_Kategorija">
+          <End Type="DBModel.Kategorija" Role="Kategorija" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DBModel.Vozilo" Role="Vozilo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorija">
+              <PropertyRef Name="KategorijaID" />
+            </Principal>
+            <Dependent Role="Vozilo">
+              <PropertyRef Name="KategorijaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korisnik_TipKorisnika">
+          <End Type="DBModel.TipKorisnika" Role="TipKorisnika" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DBModel.Korisnik" Role="Korisnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipKorisnika">
+              <PropertyRef Name="TipID" />
+            </Principal>
+            <Dependent Role="Korisnik">
+              <PropertyRef Name="TipKorisnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PovratnaInformacija_Korisnik">
+          <End Type="DBModel.Korisnik" Role="Korisnik" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DBModel.PovratnaInformacija" Role="PovratnaInformacija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="PovratnaInformacija">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Radi_Korisnik">
+          <End Type="DBModel.Korisnik" Role="Korisnik" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DBModel.Radi" Role="Radi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="Radi">
+              <PropertyRef Name="DjelatnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rezervacija_Korisnik">
+          <End Type="DBModel.Korisnik" Role="Korisnik" Multiplicity="1" />
+          <End Type="DBModel.Rezervacija" Role="Rezervacija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="Rezervacija">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PovratnaInformacija_Vozilo">
+          <End Type="DBModel.Vozilo" Role="Vozilo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DBModel.PovratnaInformacija" Role="PovratnaInformacija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vozilo">
+              <PropertyRef Name="VoziloID" />
+            </Principal>
+            <Dependent Role="PovratnaInformacija">
+              <PropertyRef Name="VoziloID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Radi_Smjena">
+          <End Type="DBModel.Smjena" Role="Smjena" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DBModel.Radi" Role="Radi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Smjena">
+              <PropertyRef Name="SmjenaID" />
+            </Principal>
+            <Dependent Role="Radi">
+              <PropertyRef Name="SmjenaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rezervacija_Vozilo">
+          <End Type="DBModel.Vozilo" Role="Vozilo" Multiplicity="1" />
+          <End Type="DBModel.Rezervacija" Role="Rezervacija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vozilo">
+              <PropertyRef Name="VoziloID" />
+            </Principal>
+            <Dependent Role="Rezervacija">
+              <PropertyRef Name="VoziloID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vozilo_TipMotora">
+          <End Type="DBModel.TipMotora" Role="TipMotora" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DBModel.Vozilo" Role="Vozilo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipMotora">
+              <PropertyRef Name="TipMotoraID" />
+            </Principal>
+            <Dependent Role="Vozilo">
+              <PropertyRef Name="TipMotoraID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Iznajmljivanje">
+            <EntityTypeMapping TypeName="DBModel.Iznajmljivanje">
+              <MappingFragment StoreEntitySet="Iznajmljivanje">
+                <ScalarProperty Name="Naplaceno" ColumnName="Naplaceno" />
+                <ScalarProperty Name="UkupnaCijena" ColumnName="UkupnaCijena" />
+                <ScalarProperty Name="KlijentID" ColumnName="KlijentID" />
+                <ScalarProperty Name="VoziloID" ColumnName="VoziloID" />
+                <ScalarProperty Name="RacunID" ColumnName="RacunID" />
+                <ScalarProperty Name="DjelatnikID" ColumnName="DjelatnikID" />
+                <ScalarProperty Name="BrojDana" ColumnName="BrojDana" />
+                <ScalarProperty Name="DatumKraja" ColumnName="DatumKraja" />
+                <ScalarProperty Name="DatumPocetka" ColumnName="DatumPocetka" />
+                <ScalarProperty Name="JedinicnaCijena" ColumnName="JedinicnaCijena" />
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="IznamljivanjeID" ColumnName="IznamljivanjeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategorija">
+            <EntityTypeMapping TypeName="DBModel.Kategorija">
+              <MappingFragment StoreEntitySet="Kategorija">
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="KategorijaID" ColumnName="KategorijaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Korisnik">
+            <EntityTypeMapping TypeName="DBModel.Korisnik">
+              <MappingFragment StoreEntitySet="Korisnik">
+                <ScalarProperty Name="TipKorisnika" ColumnName="TipKorisnika" />
+                <ScalarProperty Name="IBAN" ColumnName="IBAN" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Mobitel" ColumnName="Mobitel" />
+                <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+                <ScalarProperty Name="DatumRodenja" ColumnName="DatumRodenja" />
+                <ScalarProperty Name="KorisnickoIme" ColumnName="KorisnickoIme" />
+                <ScalarProperty Name="Lozinka" ColumnName="Lozinka" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PovratnaInformacija">
+            <EntityTypeMapping TypeName="DBModel.PovratnaInformacija">
+              <MappingFragment StoreEntitySet="PovratnaInformacija">
+                <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
+                <ScalarProperty Name="VoziloID" ColumnName="VoziloID" />
+                <ScalarProperty Name="Ocjena" ColumnName="Ocjena" />
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="PovratnaInformacijaID" ColumnName="PovratnaInformacijaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Racun">
+            <EntityTypeMapping TypeName="DBModel.Racun">
+              <MappingFragment StoreEntitySet="Racun">
+                <ScalarProperty Name="IznosRacuna" ColumnName="IznosRacuna" />
+                <ScalarProperty Name="Djelatnik" ColumnName="Djelatnik" />
+                <ScalarProperty Name="DatumRacuna" ColumnName="DatumRacuna" />
+                <ScalarProperty Name="RacunID" ColumnName="RacunID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Radi">
+            <EntityTypeMapping TypeName="DBModel.Radi">
+              <MappingFragment StoreEntitySet="Radi">
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="SmjenaID" ColumnName="SmjenaID" />
+                <ScalarProperty Name="DjelatnikID" ColumnName="DjelatnikID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rezervacija">
+            <EntityTypeMapping TypeName="DBModel.Rezervacija">
+              <MappingFragment StoreEntitySet="Rezervacija">
+                <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
+                <ScalarProperty Name="VoziloID" ColumnName="VoziloID" />
+                <ScalarProperty Name="BrojDana" ColumnName="BrojDana" />
+                <ScalarProperty Name="JedinicnaCijena" ColumnName="JedinicnaCijena" />
+                <ScalarProperty Name="DatumKraja" ColumnName="DatumKraja" />
+                <ScalarProperty Name="DatumPocetka" ColumnName="DatumPocetka" />
+                <ScalarProperty Name="DatumRezervacije" ColumnName="DatumRezervacije" />
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="RezervacijaID" ColumnName="RezervacijaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Smjena">
+            <EntityTypeMapping TypeName="DBModel.Smjena">
+              <MappingFragment StoreEntitySet="Smjena">
+                <ScalarProperty Name="Trajanje" ColumnName="Trajanje" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="SmjenaID" ColumnName="SmjenaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipKorisnika">
+            <EntityTypeMapping TypeName="DBModel.TipKorisnika">
+              <MappingFragment StoreEntitySet="TipKorisnika">
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="TipID" ColumnName="TipID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipMotora">
+            <EntityTypeMapping TypeName="DBModel.TipMotora">
+              <MappingFragment StoreEntitySet="TipMotora">
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="TipMotoraID" ColumnName="TipMotoraID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vozilo">
+            <EntityTypeMapping TypeName="DBModel.Vozilo">
+              <MappingFragment StoreEntitySet="Vozilo">
+                <ScalarProperty Name="CijenaPoDanu" ColumnName="CijenaPoDanu" />
+                <ScalarProperty Name="TipMotoraID" ColumnName="TipMotoraID" />
+                <ScalarProperty Name="KategorijaID" ColumnName="KategorijaID" />
+                <ScalarProperty Name="DatumRegistracije" ColumnName="DatumRegistracije" />
+                <ScalarProperty Name="Kilometri" ColumnName="Kilometri" />
+                <ScalarProperty Name="BrojSjedala" ColumnName="BrojSjedala" />
+                <ScalarProperty Name="SnagaMotora" ColumnName="SnagaMotora" />
+                <ScalarProperty Name="GodinaProizvodnje" ColumnName="GodinaProizvodnje" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="VoziloID" ColumnName="VoziloID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
